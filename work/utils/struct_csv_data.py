@@ -1,7 +1,9 @@
 from .csv_struct import CSV_STRUCT
 import csv 
+import os
 
 def structure_csv_data(all_data:list, ):
+    os.chdir(os.getcwd()+'/work/csvs/')
     splitted_data = []
     temp = []
     skip = False
@@ -13,9 +15,10 @@ def structure_csv_data(all_data:list, ):
             temp.append(data)
             splitted_data.append(temp)
             # print(temp)
-            structured_list = CSV_STRUCT(temp).set_Structure()
+            csv_struct = CSV_STRUCT(temp)
+            structured_list = csv_struct.set_Structure()
             # break
-            with open(f'{count}.csv', 'a+') as f:
+            with open(f'{csv_struct.get_serial_No()}.csv', 'a+') as f:
                 write = csv.writer(f)
                 write.writerows(structured_list)
                 # file.close()
